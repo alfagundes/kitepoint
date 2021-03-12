@@ -6,5 +6,6 @@ body {
 .responsive {
   width: 100%;
   height: auto;
-  padding-top: 50%;
+  padding-top: 15%;
+  padding-bottom: 50%;
 }
