@@ -145,10 +145,19 @@ header .line {
 }
 
 .area--3--content {
-  padding: 200px 80px;
-  background-image: url('../images/bg2.jpg');
   background-size: cover;
   background-position: left;
+}
+
+.area--3--content--contact {
+  width: 90%;
+  justify-content: center;
+}
+
+.area--3--content--map {
+  width: 90%;
+  justify-content: center;
+  display: flex;
 }
 
 .area--3--text {
@@ -157,7 +166,6 @@ header .line {
 }
 
 .area--3--img--1 {
-  background-image: url('../images/f5.jpg');
   background-size: cover;
   background-position: center;
 }
