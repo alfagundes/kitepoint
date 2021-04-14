@@ -8617,7 +8617,7 @@ input[type=range]::-ms-thumb {
 
 .slider {
   position: relative;
-  height: 400px;
+  height: 1080px;
   width: 100%;
 }
 

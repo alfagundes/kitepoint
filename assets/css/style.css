@@ -49,8 +49,13 @@ h2 {
   background-color: #454545;
 }
 
-header .line {
+header .line--1 {
   background-color: #FCB251;
+  height: 10px;
+}
+
+header .line--2 {
+  background-color: #006341;
   height: 10px;
 }
 
@@ -105,6 +110,13 @@ header .line {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
   background-image: url('../images/f1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.area--1--sobre {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
   background-size: cover;
   background-position: center;
 }
