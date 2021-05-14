@@ -1,10 +1,10 @@
 {
   "functions": {
-    "/assets/mail/*.php": {
+    "assets/mail/*.php": {
       "runtime": "vercel-php@0.4.0"
     }
   },
   "routes": [
-    { "src": "/(.*)",  "dest": "/assets/mail/contact_me.php" }
+    { "src": "/(.*)",  "dest": "assets/mail/contact_me.php" }
   ]
 }
