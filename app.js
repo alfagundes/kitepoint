@@ -1,93 +1,59 @@
-// Your web app's Firebase configuration
-var firebaseConfig = {
-	apiKey: "AIzaSyB6Izsku_qLcnr9lc0Ivj5eejB7-5FCaRE",
-	authDomain: "test-form-d3492.firebaseapp.com",
-	databaseURL: "https://test-form-d3492.firebaseio.com",
-	projectId: "test-form-d3492",
-	storageBucket: "test-form-d3492.appspot.com",
-	messagingSenderId: "222398070278",
-	appId: "1:222398070278:web:bf51f5c8a26dcfff9ecd87",
+// eb app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBUxZdA7LWBY59z60IA4m6yYr3hIi6TLtY",
+    authDomain: "register-form1.firebaseapp.com",
+    databaseURL: "https://register-form1.firebaseio.com",
+    projectId: "register-form1",
+    storageBucket: "register-form1.appspot.com",
+    messagingSenderId: "314668683041",
+    appId: "1:314668683041:web:6fd36776de3d39a92c7860"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+//   create a refernce to register
+const registerRef = firebase.database().ref('register');
+
+// add event listener to submit
+document.getElementById('contactForm').addEventListener('submit',registerUser);
+
+// registerUser function
+function registerUser(e) {
+    e.preventDefault();
+    // get input values
+    const name = getInputValues('name');
+    const company = getInputValues('company');
+    const email = getInputValues('email');
+    const phone = getInputValues('phone');
+    const message = getInputValues('message');
+
+    // save to firebase
+    saveInfoToFirebase(name,company,email,phone,message);
+
+    // show alert upon submission
+    document.querySelector('.alert').style.display = 'block';
+    
+    // hide alert after 4 seconds
+    setTimeout(() =>{
+        document.querySelector('.alert').style.display = 'none';
+    },4000)
   
-  // Refernece contactInfo collections
-  let contactInfo = firebase.database().ref("infos");
-  
-  // Listen for a submit
-  document.querySelector(".contact-form").addEventListener("submit", submitForm);
-  
-  function submitForm(e) {
-	e.preventDefault();
-  
-	//   Get input Values
-	let name = document.querySelector(".name").value;
-	let email = document.querySelector(".email").value;
-	let message = document.querySelector(".message").value;
-	console.log(name, email, message);
-  
-	saveContactInfo(name, email, message);
-  
-	document.querySelector(".contact-form").reset();
+}
 
-	sendEmail(name, email, message);
-  }
-  
-  // Save infos to Firebase
-  function saveContactInfo(name, email, message) {
-	let newContactInfo = contactInfo.push();
-  
-	newContactInfo.set({
-	  name: name,
-	  email: email,
-	  message: message,
-	});
+// get the input values
+const getInputValues = (id) => {
+    return document.getElementById(id).value;
+}
 
-	retrieveInfos();
+// save the data to firebase
 
-  }
-
-  // Retrive Infos
-  function retrieveInfos(){
-	  let ref = firebase.database().ref("infos");
-	  ref.on("value", gotData);
-  }
-
-  function gotData(data){
-	  let info = data.val();
-	  let keys = Object.keys(info);
-
-	  for (let i = 0; i < keys.length; i++) {
-
-		let infoData = keys[i];
-		let name = info[infoData].name;
-		let email = info[infoData].email;
-		let message = info[infoData].message;
-		console.log(name, email, message);
-
-		let infosResults = document.querySelector(".infosResults");
-
-		infosResults.innerHTML += `<div>
-		<p>
-		<strong>Name:</strong>${name} <br/>
-		<strong>Name:</strong>${email} <br/>
-		<strong>Name:</strong>${message} <br/>
-		</p>
-		</div>`;
-	  }
-  }
-
-  retrieveInfos();
-
-  // Send Email Info
-  function sendEmail(name, email, message){
-			Email.send({
-				Host: "smtp.gmail.com",
-				Username: "alexandre.araujofagundes@gmail.com",
-				Password: "ujxhwxuuwlhoenhm",
-				To: "alexandre.araujofagundes@gmail.com",
-				From: "alexandre.araujofagundes@gmail.com",
-				Subject: `${name} sent you message`,
-				Body: `Name: ${name} <br /> Email: ${email} <br /> Message: ${message}`
-			})
-  }
+const saveInfoToFirebase = (name,company,email,phone,message) => {
+    const pushToFirebase = registerRef.push();
+    pushToFirebase.set({
+        name,
+        company,
+        email,
+        phone,
+        message
+    })
+}
