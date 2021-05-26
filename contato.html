@@ -1,9 +1,49 @@
-<form action="https://getform.io/f/b88272fb-8c43-4989-8eb5-60bda3916728" method="POST">
-
-    <input type="text" name="name">
-    <input type="email" name="email">
-    <input type="text" name="message">
-    <input type="text" name="description">
-    <button type="submit">Send</button>
-  
-  </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form id="contactForm" name="sentMessage" novalidate="novalidate">
+        <div class="row align-items-stretch mb-5">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input class="form-control" id="name" type="text" placeholder="Nome *" required="required"
+                        data-validation-required-message="Por favor digite seu nome." />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" id="email" type="email" placeholder="E-mail *"
+                        required="required"
+                        data-validation-required-message="Por favor digite seu endereço de email." />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="form-group mb-md-0">
+                    <input class="form-control" id="phone" type="tel" placeholder="Telefone *"
+                        required="required"
+                        data-validation-required-message="Por favor digite seu número de telefone." />
+                    <p class="help-block text-danger"></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-group-textarea mb-md-0">
+                    <textarea class="form-control" id="message" placeholder="Sua Mensagem *" required="required"
+                        data-validation-required-message="Digite sua mensage."></textarea>
+                    <p class="help-block text-danger"></p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div id="success"></div>
+            <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton"
+                type="submit">Enviar</button>
+        </div>
+    </form>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
