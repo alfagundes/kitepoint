@@ -65,18 +65,16 @@ var firebaseConfig = {
 		let message = info[infoData].message;
 		console.log(name, email, message);
 
-		let infoResults = document.querySelector(".infosResults");
+		let infosResults = document.querySelector(".infosResults");
 
-		infoResults.innerHTML += `<div>
+		infosResults.innerHTML += `<div>
 		<p>
 		<strong>Name:</strong>${name} <br/>
 		<strong>Name:</strong>${email} <br/>
 		<strong>Name:</strong>${message} <br/>
 		</p>
 		</div>`;
-
 	  }
-
   }
 
   retrieveInfos();
@@ -91,5 +89,5 @@ var firebaseConfig = {
 				From: "alexandre.araujofagundes@gmail.com",
 				Subject: `${name} sent you message`,
 				Body: `Name: ${name} <br /> Email: ${email} <br /> Message: ${message}`
-			});
+			})
   }
