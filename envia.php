@@ -1,68 +1,48 @@
 <?php
-if (isset($_POST['BTEnvia'])) {
- 
- //Variaveis de POST, Alterar somente se necessário 
- //====================================================
- $nome = $_POST['nome'];
- $email = $_POST['email'];
- $telefone = $_POST['telefone']; 
- $mensagem = $_POST['mensagem'];
- //====================================================
- 
- //REMETENTE --> ESTE EMAIL TEM QUE SER VALIDO DO DOMINIO
- //==================================================== 
- $email_remetente = "alexandre.araujofagundes@gmail.com"; // deve ser uma conta de email do seu dominio 
- //====================================================
- 
- //Configurações do email, ajustar conforme necessidade
- //==================================================== 
- $email_destinatario = "email@querecebe"; // pode ser qualquer email que receberá as mensagens
- $email_reply = "$email"; 
- $email_assunto = "Contato formmail"; // Este será o assunto da mensagem
- //====================================================
- 
- //Monta o Corpo da Mensagem
- //====================================================
- $email_conteudo = "Nome = $nome \n"; 
- $email_conteudo .= "Email = $email \n";
- $email_conteudo .= "Telefone = $telefone \n"; 
- $email_conteudo .= "Mensagem = $mensagem \n"; 
- //====================================================
- 
- //Seta os Headers (Alterar somente caso necessario) 
- //==================================================== 
- $email_headers = implode ( "\n",array ( "From: $email_remetente", "Reply-To: $email_reply", "Return-Path: $email_remetente","MIME-Version: 1.0","X-Priority: 3","Content-Type: text/html; charset=UTF-8" ) );
- //====================================================
- 
- //Enviando o email 
- //==================================================== 
- if (mail ($email_destinatario, $email_assunto, nl2br($email_conteudo), $email_headers)){ 
- echo "</b>E-Mail enviado com sucesso!</b>"; 
- } 
- else{ 
- echo "</b>Falha no envio do E-Mail!</b>"; } 
- //====================================================
-} 
+$Nome		= $_POST["Nome"];	// Pega o valor do campo Nome
+$Fone		= $_POST["Fone"];	// Pega o valor do campo Telefone
+$Email		= $_POST["Email"];	// Pega o valor do campo Email
+$Mensagem	= $_POST["Mensagem"];	// Pega os valores do campo Mensagem
+
+// Variável que junta os valores acima e monta o corpo do email
+
+$Vai 		= "Nome: $Nome\n\nE-mail: $Email\n\nTelefone: $Fone\n\nMensagem: $Mensagem\n";
+
+require_once("phpmailer/class.phpmailer.php");
+
+define('GUSER', 'alexandr.fagundes@gmail.com');	// <-- Insira aqui o seu GMail
+define('GPWD', '021724af@');		// <-- Insira aqui a senha do seu GMail
+
+function smtpmailer($para, $de, $de_nome, $assunto, $corpo) { 
+	global $error;
+	$mail = new PHPMailer();
+	$mail->IsSMTP();		// Ativar SMTP
+	$mail->SMTPDebug = 0;		// Debugar: 1 = erros e mensagens, 2 = mensagens apenas
+	$mail->SMTPAuth = true;		// Autenticação ativada
+	$mail->SMTPSecure = 'ssl';	// SSL REQUERIDO pelo GMail
+	$mail->Host = 'smtp.gmail.com';	// SMTP utilizado
+	$mail->Port = 587;  		// A porta 587 deverá estar aberta em seu servidor
+	$mail->Username = GUSER;
+	$mail->Password = GPWD;
+	$mail->SetFrom($de, $de_nome);
+	$mail->Subject = $assunto;
+	$mail->Body = $corpo;
+	$mail->AddAddress($para);
+	if(!$mail->Send()) {
+		$error = 'Mail error: '.$mail->ErrorInfo; 
+		return false;
+	} else {
+		$error = 'Mensagem enviada!';
+		return true;
+	}
+}
+
+// Insira abaixo o email que irá receber a mensagem, o email que irá enviar (o mesmo da variável GUSER), o nome do email que envia a mensagem, o Assunto da mensagem e por último a variável com o corpo do email.
+
+ if (smtpmailer('alexandre.araujofagundes@gmail.com', 'alexandr.fagundes@gmail.com', 'Kite point', 'Assunto do Email', $Vai)) {
+
+	Header("location:http://www.dominio.com.br/obrigado.html"); // Redireciona para uma página de obrigado.
+
+}
+if (!empty($error)) echo $error;
 ?>
- 
- <form action="<? $PHP_SELF; ?>" method="POST"> 
- <p> 
- Nome:<br /> 
- <input type="text" size="30" name="nome"> 
- </p>   
- <p> 
- E-mail:<br /> 
- <input type="text" size="30" name="email"> 
- </p>   
- <p> 
- Telefone:<br /> 
- <input type="text" size="35" name="telefone"> 
- </p>   
- <p> 
- Mensagem:<br /> 
- <input type="text" size="35" name="mensagem"> 
- </p>   
- <p>
-          <input type="submit" name="BTEnvia" value="Enviar"> 
-   <input type="reset" name="BTApaga" value="Apagar">
-        </p>
