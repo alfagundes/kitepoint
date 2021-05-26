@@ -91,10 +91,6 @@ var firebaseConfig = {
 				To: 'alexandre.araujofagundes@gmail.com',
 				From: 'alexandre.araujofagundes@gmail.com',
 				Subject: `${name} sent you message`,
-				Body: 
-					`Name: ${name} <br /> 
-					 Email: ${email} <br /> 
-					 Message: ${message}`,
-			})
-			.then((message) => alert ("mail sent sucess fully"));
+				Body: `Name: ${name} <br /> Email: ${email} <br /> Message: ${message}`
+			});
   }
