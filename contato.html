@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
-<meta charset="UTF-8">
-<meta nome="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
 </head>
 <body>
-    
-  <!-- modify this form HTML and place wherever you want your form -->
+    <form action="//formspree.io/kitepointlagoadoarmazem@gmail.com" method="POST">
+        <!-- Parâmetros enviados pelo usuário -->
+        Nome: <input type="text" name="Nome"/>
+        Email: <input type="text" name="_replyto" />
+        Mensagem: <input type="text" name="Mensagem" />
 
-  <form id="contact-form" action="http://formspree.io/kitepointlagoadoarmazem@gmail.com" method="POST">
-    <input type="text" name="Nome" id="name-contact-form" placeholder="Nome" required>
-    <input type="email" name="Email" placeholder="Email" required>
-    <input type="hidden" id="subject-contact-form" name="_subject" value="[Contato]" />
-    <input type="hidden" id="pics-contact-form" name="Fotos" value="" />
-    <textarea name="Mensagem" placeholder="Conte um pouco sobre você e sua história!" required></textarea>
-    <p id="filePick" class="contact-pics">Selecionar fotos</p>
-    <input type="text" name="_gotcha" style="display:none" />
-    <input type="hidden" name="_next" value="motocatt/confirmation.html" />
-    <input type="submit" value="Enviar">
-  </form>
-  
-  <script src="app.js"></script>
-  <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
-  
+        <!-- Parâmetros automáticos do Formspree-->
+        <input type="hidden" name="_next" value="confirmation.html" />
+        <input type="text" name="_gotcha" style="display:none" />
+        <input type="hidden" name="_cc" value="outroemail@dominio.com" />
+        <input type="hidden" name="_subject" value="Formulário de contato com foto" />
+
+        <!-- Integração com o FilePicker 
+        <input type="button" id="filepicker" value="Selecionar arquivo" />
+        <input type="hidden" name="Arquivo" id="file" />
+-->
+        <input type="submit" value="Enviar" />
+    </form>
+    <script>
+        // Configuração do FilePicker
+        var filePickerSetup = {
+            mimetype: 'image/*'
+        };
+
+        // Função de sucesso do FilePicker
+        var onSuccess = function (file) {
+            var inputFile = document.getElementById('file');
+            inputFile.value = file.url;
+        };
+
+        // Função de erro do FilePicker
+        var onError = function (data) {
+            alert('Houve um erro ao carregar seus arquivos');
+        };
+
+        // Listener do FilePicker
+        var filePickerButton = document.getElementById('filepicker');
+        filePickerButton.addEventListener('click', function() {
+            filepicker.setKey("AU1fUmYBR0SeuGjHqSuvjz");
+            filepicker.pick(filePickerSetup, onSuccess, onError);
+        });
+    </script>
 </body>
 </html>
