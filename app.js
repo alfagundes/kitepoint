@@ -1,59 +1,46 @@
-// eb app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBUxZdA7LWBY59z60IA4m6yYr3hIi6TLtY",
-    authDomain: "register-form1.firebaseapp.com",
-    databaseURL: "https://register-form1.firebaseio.com",
-    projectId: "register-form1",
-    storageBucket: "register-form1.appspot.com",
-    messagingSenderId: "314668683041",
-    appId: "1:314668683041:web:6fd36776de3d39a92c7860"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-//   create a refernce to register
-const registerRef = firebase.database().ref('register');
-
-// add event listener to submit
-document.getElementById('contactForm').addEventListener('submit',registerUser);
-
-// registerUser function
-function registerUser(e) {
-    e.preventDefault();
-    // get input values
-    const name = getInputValues('name');
-    const company = getInputValues('company');
-    const email = getInputValues('email');
-    const phone = getInputValues('phone');
-    const message = getInputValues('message');
-
-    // save to firebase
-    saveInfoToFirebase(name,company,email,phone,message);
-
-    // show alert upon submission
-    document.querySelector('.alert').style.display = 'block';
-    
-    // hide alert after 4 seconds
-    setTimeout(() =>{
-        document.querySelector('.alert').style.display = 'none';
-    },4000)
+(function formspree() {
+    var doc = document;
+    var fileCounter = 0;
+    var getElement = function (id) {
+      return doc.getElementById(id);
+    };
   
-}
-
-// get the input values
-const getInputValues = (id) => {
-    return document.getElementById(id).value;
-}
-
-// save the data to firebase
-
-const saveInfoToFirebase = (name,company,email,phone,message) => {
-    const pushToFirebase = registerRef.push();
-    pushToFirebase.set({
-        name,
-        company,
-        email,
-        phone,
-        message
-    })
-}
+    getElement("name-contact-form").addEventListener("change", function() {
+      getElement("subject-contact-form").setAttribute("value", "[Contato] " + this.value);
+    });
+  
+    getElement('filePick').addEventListener('click', function() {
+      filepicker.setKey("AU1fUmYBR0SeuGjHqSuvjz");
+      filepicker.pickMultiple(
+        {
+          mimetype: 'image/*',
+            container: 'modal',
+            services: ['COMPUTER', 'FACEBOOK', 'GOOGLE_DRIVE', 'INSTAGRAM', 'URL', 'WEBCAM', ]
+        },
+        function(data){
+          for (var i = 0; i < data.length; i++) {
+            var file = data[i];
+            var fileInput = document.createElement('input');
+  
+            fileInput.type = 'hidden';
+            fileInput.name = 'Foto ' + (++fileCounter);
+            fileInput.value = file.filename + ': ' + file.url;
+  
+            getElement('contact-form').appendChild(fileInput);
+            getElement('filePick').innerHTML = '✓ Fotos Selecionadas';
+          };
+        },
+        function(data){
+          var fileCounter = 0;
+          for (var i = 0; i < data.length; i++) {
+            var file = data[i];
+            var fileInput = document.createElement('input');
+            fileInput.type = 'hidden';
+            fileInput.name = 'Foto não recebida ' + (++fileCounter);
+            fileInput.value = file.name + file.url;
+            getElement('contact-form').appendChild(fileInput);
+          };
+        }
+      );
+    });
+  })();

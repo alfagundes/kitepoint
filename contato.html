@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Zero Budget Club - Free Website Template</title>
+<title></title>
 <meta charset="UTF-8">
 <meta nome="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -13,22 +13,20 @@
     
   <!-- modify this form HTML and place wherever you want your form -->
 
-<form
-action="https://formspree.io/f/mnqldjbe"
-method="POST"
->
-<label>
-  Your email:
-  <input type="email" name="_replyto">
-</label>
-<label>
-  Your message:
-  <textarea name="message"></textarea>
-</label>
-
-<!-- your other form fields go here -->
-
-<button type="submit">Send</button>
-</form>
+  <form id="contact-form" action="http://formspree.io/kitepointlagoadoarmazem@gmail.com" method="POST">
+    <input type="text" name="Nome" id="name-contact-form" placeholder="Nome" required>
+    <input type="email" name="Email" placeholder="Email" required>
+    <input type="hidden" id="subject-contact-form" name="_subject" value="[Contato]" />
+    <input type="hidden" id="pics-contact-form" name="Fotos" value="" />
+    <textarea name="Mensagem" placeholder="Conte um pouco sobre você e sua história!" required></textarea>
+    <p id="filePick" class="contact-pics">Selecionar fotos</p>
+    <input type="text" name="_gotcha" style="display:none" />
+    <input type="hidden" name="_next" value="motocatt/confirmation.html" />
+    <input type="submit" value="Enviar">
+  </form>
+  
+  <script src="app.js"></script>
+  <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+  
 </body>
 </html>
