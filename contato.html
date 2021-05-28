@@ -1,50 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
-</head>
-<body>
-    <form action="//formspree.io/kitepointlagoadoarmazem@gmail.com" method="POST">
-        <!-- Parâmetros enviados pelo usuário -->
-        Nome: <input type="text" name="Nome"/>
-        Email: <input type="text" name="_replyto" />
-        Mensagem: <input type="text" name="Mensagem" />
-
-        <!-- Parâmetros automáticos do Formspree-->
-        <input type="hidden" name="_next" value="confirmation.html" />
-        <input type="text" name="_gotcha" style="display:none" />
-        <input type="hidden" name="_cc" value="outroemail@dominio.com" />
-        <input type="hidden" name="_subject" value="Formulário de contato com foto" />
-
-        <!-- Integração com o FilePicker 
-        <input type="button" id="filepicker" value="Selecionar arquivo" />
-        <input type="hidden" name="Arquivo" id="file" />
--->
-        <input type="submit" value="Enviar" />
-    </form>
-    <script>
-        // Configuração do FilePicker
-        var filePickerSetup = {
-            mimetype: 'image/*'
-        };
-
-        // Função de sucesso do FilePicker
-        var onSuccess = function (file) {
-            var inputFile = document.getElementById('file');
-            inputFile.value = file.url;
-        };
-
-        // Função de erro do FilePicker
-        var onError = function (data) {
-            alert('Houve um erro ao carregar seus arquivos');
-        };
-
-        // Listener do FilePicker
-        var filePickerButton = document.getElementById('filepicker');
-        filePickerButton.addEventListener('click', function() {
-            filepicker.setKey("AU1fUmYBR0SeuGjHqSuvjz");
-            filepicker.pick(filePickerSetup, onSuccess, onError);
-        });
-    </script>
-</body>
-</html>
+<div class="container">
+  <h1>FormSubmit Demo</h1>
+  <form target="_blank" action="https://formsubmit.co/kitepointlagoadoarmazem@gmail.com" method="POST">
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" name="nome" class="form-control" placeholder="Nome" required>
+        </div>
+        <div class="col">
+          <input type="email" name="email" class="form-control" placeholder="Email" required>
+        </div>
+        <div class="col">
+          <input type="phone" name="telefone" class="form-control" placeholder="Telefone" required>
+        </div>
+        <div class="col">
+          <input type="text" name="mensagem" class="form-control" placeholder="Deixe sua mensagem." required>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
+  </form>
+</div>
